@@ -72,7 +72,7 @@ function showRandomQuote() {
 }
 newQuoteButton.addEventListener('click',showRandomQuote);
 
-function addQuote(){
+function createAddQuoteForm(){
     let textValue = text.value.trim();
     let categoryValue = category.value.trim();
     text.value = '';
