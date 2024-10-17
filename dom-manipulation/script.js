@@ -51,28 +51,17 @@ const quotes = [
 function getRandomQuote() {
     const randomIndex = Math.floor(Math.random() * quotes.length);
     return quotes[randomIndex];
-    const quoteText = document.createElement('p');
-  const quoteCategory = document.createElement('span');
-
-  // Set the content
-  quoteText.textContent = quote.text;
-  quoteCategory.textContent = ` - ${quote.category}`;
-
-  // Append elements to the quoteDisplay div
-  quoteDisplay.appendChild(quoteText);
-  quoteDisplay.appendChild(quoteCategory);
 }
 
-function showRandomQuote() {
+function displayQuote() {
     const quote = getRandomQuote();
    return quoteDisplay.innerHTML = `<p>${quote.text}</p><span>${quote.category}</span>`;
 }
-newQuoteButton.addEventListener('click', showRandomQuote);
+newQuoteButton.addEventListener('click', displayQuote);
 
-function createAddQuoteForm(){
+function addQuote(){
     let textValue = text.value.trim();
     let categoryValue = category.value.trim();
-    
     text.value = '';
     category.value = '';
     return quotes.push({ text: textValue, category: categoryValue });
