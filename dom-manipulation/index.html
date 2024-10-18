@@ -11,6 +11,7 @@
   <button id="newQuote">Show New Quote</button>
   
   <div>
+      <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
     <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
     <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
     <button onclick="createAddQuoteForm()">Add Quote</button>
