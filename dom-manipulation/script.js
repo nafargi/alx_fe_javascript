@@ -1,6 +1,5 @@
 const quoteDisplay = document.getElementById('quoteDisplay');
 const newQuoteButton = document.getElementById('newQuote');
-
 const text = document.getElementById('newQuoteText');
 const category = document.getElementById('newQuoteCategory');
 
