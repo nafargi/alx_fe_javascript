@@ -84,6 +84,19 @@ function createAddQuoteForm(){
     return quotes.push({ text: textValue, category: categoryValue });
 
 }
+
+function exportToJson() {
+  const dataStr = JSON.stringify(quotes, null, 2);
+  const blob = new Blob([dataStr], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = "quotes.json";
+  a.click();
+
+  URL.revokeObjectURL(url); // Clean up the URL
+}
 function importFromJsonFile(event) {
   const fileReader = new FileReader();
   fileReader.onload = function(event) {
