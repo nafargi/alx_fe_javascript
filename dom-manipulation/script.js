@@ -2,7 +2,7 @@ const quoteDisplay = document.getElementById('quoteDisplay');
 const newQuoteButton = document.getElementById('newQuote');
 const text = document.getElementById('newQuoteText');
 const category = document.getElementById('newQuoteCategory');
-const quotes = [
+const quotes = JSON.parse(localStorage.getItem('quotes')) || [
     { 
         text: "The only way to do great work is to love what you do.", 
         category: "Motivation" 
@@ -63,10 +63,14 @@ function getRandomQuote() {
   quoteDisplay.appendChild(quoteText);
   quoteDisplay.appendChild(quoteCategory);
 }
-
+if(sessionStorage.getItem("qoute")){
+  quoteDisplay.innerHTML = sessionStorage.getItem("qoute");
+}
 function showRandomQuote() {
     const quote = getRandomQuote();
    return quoteDisplay.innerHTML = `<p>${quote.text}</p><span>${quote.category}</span>`;
+       sessionStorage.setItem("qoute", quoteDisplay.innerHTML);
+
 }
 newQuoteButton.addEventListener('click',showRandomQuote);
 
@@ -75,7 +79,20 @@ function createAddQuoteForm(){
     let categoryValue = category.value.trim();
     text.value = '';
     category.value = '';
+         localStorage.setItem('quotes', JSON.stringify(quotes));
+
     return quotes.push({ text: textValue, category: categoryValue });
 
 }
+function importFromJsonFile(event) {
+  const fileReader = new FileReader();
+  fileReader.onload = function(event) {
+    const importedQuotes = JSON.parse(event.target.result);
+    quotes.push(...importedQuotes);
+    saveQuotes();
+    alert('Quotes imported successfully!');
+  };
+  fileReader.readAsText(event.target.files[0]);
+}
+console.log(localStorage.getItem('quotes'));
 
