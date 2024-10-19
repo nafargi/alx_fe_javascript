@@ -130,4 +130,53 @@ function importFromJsonFile(event) {
   fileReader.readAsText(event.target.files[0]);
 }
 console.log(localStorage.getItem('quotes'));
+    // Simulate server sync with conflict handling.
+async function syncWithServer(newQuote) {
+  try {
+    // POST new quote to the server.
+    await fetch(serverUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newQuote)
+    });
+
+    syncMessage.textContent = 'Quote synced with server!';
+    setTimeout(() => (syncMessage.textContent = ''), 3000);
+  } catch (error) {
+    console.error('Error syncing with server:', error);
+  }
+}
+
+// Fetch latest quotes from the server and handle conflicts.
+async function fetchQuotesFromServer() {
+  try {
+    const response = await fetch(serverUrl);
+    const serverQuotes = await response.json();
+
+    // Simulate conflict resolution by prioritizing server data.
+    const serverData = serverQuotes.map(q => ({
+      text: q.body.substring(0, 20), // Mock text from JSONPlaceholder.
+      category: 'Server'
+    }));
+
+    if (JSON.stringify(serverData) !== JSON.stringify(quotes)) {
+      conflictMessage.textContent = 'Conflict detected! Server data takes precedence.';
+      setTimeout(() => (conflictMessage.textContent = ''), 5000);
+
+      quotes = serverData;
+      localStorage.setItem('quotes', JSON.stringify(quotes));
+      populateCategories();
+      filterQuotes();
+    }
+  } catch (error) {
+    console.error('Error fetching data from server:', error);
+  }
+}
+
+// Periodically sync with the server every 30 seconds.
+setInterval(fetchQuotesFromServer, 30000);
+
+// Event listeners.
+newQuoteButton.addEventListener('click', addQuote);
+categoryFilter.addEventListener('change', filterQuotes);
 
