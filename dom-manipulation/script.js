@@ -172,6 +172,7 @@ async function syncQuotes() {
     console.error('Error fetching data from server:', error);
   }
 }
+     syncMessage.textContent = 'Quote synced with server!';
 
 // Periodically sync with the server every 30 seconds.
 setInterval(fetchQuotesFromServer, 30000);
