@@ -82,6 +82,8 @@ function createAddQuoteForm(){
          localStorage.setItem('quotes', JSON.stringify(quotes));
 
     return quotes.push({ text: textValue, category: categoryValue });
+     populateCategories() ;
+     filterQuotes();
 
 }
 
@@ -96,6 +98,17 @@ function exportToJson() {
   a.click();
 
   URL.revokeObjectURL(url); // Clean up the URL
+}
+function filterQuotes() {
+  const selectedCategory = categoryFilter.value;
+  localStorage.setItem('selectedCategory', selectedCategory); // Save filter preference.
+
+  const filteredQuotes = selectedCategory === 'all' 
+    ? quotes 
+    : quotes.filter(quote => quote.category === selectedCategory);
+
+  quoteDisplay.innerHTML = filteredQuotes.map(q =>
+    `<p>${q.text} <span>[${q.category}]</span></p>`).join('');
 }
 function populateCategories() {
   const categories = [...new Set(quotes.map(quote => quote.category))];
