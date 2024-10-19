@@ -162,7 +162,7 @@ async function syncQuotes() {
     if (JSON.stringify(serverData) !== JSON.stringify(quotes)) {
       conflictMessage.textContent = 'Conflict detected! Server data takes precedence.';
       setTimeout(() => (conflictMessage.textContent = ''), 5000);
-
+ syncMessage.textContent = 'Quote synced with server!';
       quotes = serverData;
       localStorage.setItem('quotes', JSON.stringify(quotes));
       populateCategories();
