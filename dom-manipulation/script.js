@@ -140,7 +140,7 @@ async function syncWithServer(newQuote) {
       body: JSON.stringify(newQuote)
     });
 
-    syncMessage.textContent = 'Quote synced with server!';
+    syncMessage.textContent = "Quotes synced with server!";
     setTimeout(() => (syncMessage.textContent = ''), 3000);
   } catch (error) {
     console.error('Error syncing with server:', error);
@@ -172,7 +172,7 @@ async function syncQuotes() {
     console.error('Error fetching data from server:', error);
   }
 }
-     syncMessage.textContent = 'Quote synced with server!';
+     syncMessage.textContent = "Quotes synced with server!";
 
 // Periodically sync with the server every 30 seconds.
 setInterval(fetchQuotesFromServer, 30000);
