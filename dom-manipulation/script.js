@@ -134,7 +134,7 @@ console.log(localStorage.getItem('quotes'));
 async function syncWithServer(newQuote) {
   try {
     // POST new quote to the server.
-    await fetch(serverUrl, {
+    await fetch("https://jsonplaceholder.typicode.com/posts", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newQuote)
@@ -150,7 +150,7 @@ async function syncWithServer(newQuote) {
 // Fetch latest quotes from the server and handle conflicts.
 async function fetchQuotesFromServer() {
   try {
-    const response = await fetch(serverUrl);
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
     const serverQuotes = await response.json();
 
     // Simulate conflict resolution by prioritizing server data.
