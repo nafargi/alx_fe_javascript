@@ -148,7 +148,7 @@ async function syncWithServer(newQuote) {
 }
 
 // Fetch latest quotes from the server and handle conflicts.
-async function fetchQuotesFromServer() {
+async function syncQuotes() {
   try {
     const response = await fetch("https://jsonplaceholder.typicode.com/posts");
     const serverQuotes = await response.json();
