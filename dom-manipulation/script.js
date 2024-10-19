@@ -51,22 +51,19 @@ function getRandomQuote() {
     return quotes[randomIndex];
     quoteDisplay.innerHTML = '';
 
-  // Create elements
   const quoteText = document.createElement('p');
   const quoteCategory = document.createElement('span');
 
-  // Set the content
   quoteText.textContent = quote.text;
   quoteCategory.textContent = ` - ${quote.category}`;
 
-  // Append elements to the quoteDisplay div
   quoteDisplay.appendChild(quoteText);
   quoteDisplay.appendChild(quoteCategory);
 }
 if(sessionStorage.getItem("qoute")){
   quoteDisplay.innerHTML = sessionStorage.getItem("qoute");
 }
-function showRandomQuote() {
+() {function showRandomQuote(){
     const quote = getRandomQuote();
    return quoteDisplay.innerHTML = `<p>${quote.text}</p><span>${quote.category}</span>`;
        sessionStorage.setItem("qoute", quoteDisplay.innerHTML);
@@ -97,11 +94,11 @@ function exportToJson() {
   a.download = "quotes.json";
   a.click();
 
-  URL.revokeObjectURL(url); // Clean up the URL
+  URL.revokeObjectURL(url); 
 }
 function filterQuotes() {
   const selectedCategory = categoryFilter.value;
-  localStorage.setItem('selectedCategory', selectedCategory); // Save filter preference.
+  localStorage.setItem('selectedCategory', selectedCategory);
 
   const filteredQuotes = selectedCategory === 'all' 
     ? quotes 
@@ -130,10 +127,9 @@ function importFromJsonFile(event) {
   fileReader.readAsText(event.target.files[0]);
 }
 console.log(localStorage.getItem('quotes'));
-    // Simulate server sync with conflict handling.
+
 async function syncWithServer(newQuote) {
   try {
-    // POST new quote to the server.
     await fetch("https://jsonplaceholder.typicode.com/posts", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -147,15 +143,13 @@ async function syncWithServer(newQuote) {
   }
 }
 
-// Fetch latest quotes from the server and handle conflicts.
 async function syncQuotes() {
   try {
     const response = await fetch("https://jsonplaceholder.typicode.com/posts");
     const serverQuotes = await response.json();
 
-    // Simulate conflict resolution by prioritizing server data.
     const serverData = serverQuotes.map(q => ({
-      text: q.body.substring(0, 20), // Mock text from JSONPlaceholder.
+      text: q.body.substring(0, 20), 
       category: 'Server'
     }));
 
@@ -174,10 +168,9 @@ async function syncQuotes() {
 }
      syncMessage.textContent = "Quotes synced with server!";
 
-// Periodically sync with the server every 30 seconds.
+
 setInterval(fetchQuotesFromServer, 30000);
 
-// Event listeners.
 newQuoteButton.addEventListener('click', addQuote);
 categoryFilter.addEventListener('change', filterQuotes);
 
