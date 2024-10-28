@@ -47,7 +47,6 @@ function createAddQuoteForm(){
      filterQuotes();
 
 }
-
 function exportToJson() {
   const dataStr = JSON.stringify(quotes, null, 2);
   const blob = new Blob([dataStr], { type: "application/json" });
