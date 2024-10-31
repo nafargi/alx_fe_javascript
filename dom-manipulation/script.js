@@ -131,7 +131,6 @@ async function syncQuotes() {
 }
      syncMessage.textContent = "Quotes synced with server!";
 
-
 setInterval(fetchQuotesFromServer, 30000);
 
 newQuoteButton.addEventListener('click', addQuote);
